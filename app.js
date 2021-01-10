@@ -17,7 +17,7 @@ app.use((req, res, next) => {
     next();
 });
 
-mongoose.connect('mongodb://localhost/celke', {
+mongoose.connect('mongodb://localhost/metasAno', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -27,7 +27,7 @@ mongoose.connect('mongodb://localhost/celke', {
 });
 
 app.get('/metas', async (req, res) => {
-    await Meta.find({}).then((metas) => {
+    await Meta.find({/*status:'iniciada'*/}).then((metas) => {
         return res.json({
             error: false,
             metas
@@ -35,7 +35,7 @@ app.get('/metas', async (req, res) => {
     }).catch((err) => {
         return res.status(400).json({
             error: true,
-            message: "Nenhum resgistro encontrado!"
+            message: "Nenhum registro encontrado!"
         });
     });
 });
