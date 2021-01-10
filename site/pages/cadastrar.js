@@ -10,7 +10,23 @@ function Cadastrar(){
     const onChangeInput = e => setMeta({...meta,[e.target.name]:e.target.value})
     const sendMeta = async e =>{
         e.preventDefault();
-        console.log(meta);
+        try{
+        //enviar dados para o banco de dados
+        const res = await fetch('http://localhost:8080/metas', {
+            method: 'POST',
+            body: JSON.stringify(meta),
+            headers: {'Content-Type':'application/json'}
+        });
+        const responseEnv = await res.json();
+        if(responseEnv.error){
+            console.log(responseEnv.message);
+        }else{
+            console.log('Dados cadastrados com sucesso');
+        }
+    }catch(err){
+        console.log('erro ao enviar dados');
+
+    }
     }
 
     return (
